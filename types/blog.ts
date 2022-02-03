@@ -1,15 +1,19 @@
 export type Blog = {
   id: string;
+  body: string;
+  title: string;
+  tags: Tag[];
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
   revisedAt: string;
-  title: string;
-  body: string;
-  eye_catch: {
-    url: string;
-    height: number;
-    width: number;
-  };
+};
+
+export type Tag = {
+  id: string;
   tag: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
 };

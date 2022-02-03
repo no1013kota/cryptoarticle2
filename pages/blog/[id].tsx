@@ -39,6 +39,14 @@ const BlogId: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
     <main>
       <h1>{blog.title}</h1>
       <p>{blog.publishedAt}</p>
+      {blog.tags.map((tag) => (
+        <p key={tag.id}>{tag.tag}</p>
+      ))}
+      <div
+        dangerouslySetInnerHTML={{
+          __html: `${blog.body}`,
+        }}
+      />
     </main>
   );
 };
