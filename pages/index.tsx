@@ -1,3 +1,12 @@
+import {
+  Button,
+  Card,
+  AppBar,
+  Toolbar,
+  Typography,
+  Grid,
+  CardContent,
+} from "@mui/material";
 import type { InferGetStaticPropsType, NextPage } from "next";
 import Link from "next/link";
 import { client } from "../libs/client";
@@ -20,18 +29,32 @@ type Props = {
 const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   blog,
 }: Props) => {
+  console.log(blog);
   return (
-    <div>
-      <ul>
+    <>
+      {/* ヘッダー */}
+      <AppBar position="static">
+        <Toolbar>
+          <Typography>ヘッダー</Typography>
+        </Toolbar>
+      </AppBar>
+
+      {/* 記事一覧 */}
+      <Grid container spacing={1}>
         {blog.map((blog) => (
-          <li key={blog.id}>
-            <Link href={`/blog/${blog.id}`}>
-              <a>{blog.title}</a>
+          <Grid item xs={4} key={blog.id}>
+            <Link href={`/blog/${blog.id}`} passHref>
+              <Card variant="outlined">
+                <CardContent>{blog.title}</CardContent>
+              </Card>
             </Link>
-          </li>
+          </Grid>
         ))}
-      </ul>
-    </div>
+      </Grid>
+
+      {/* ボタンサンプル */}
+      <Button variant="text">Material UIのボタン</Button>
+    </>
   );
 };
 
