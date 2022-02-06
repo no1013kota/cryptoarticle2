@@ -6,6 +6,7 @@ import {
   Typography,
   Grid,
   CardContent,
+  CardActions,
 } from "@mui/material";
 import type { InferGetStaticPropsType, NextPage } from "next";
 import Link from "next/link";
@@ -30,6 +31,10 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   blog,
 }: Props) => {
   console.log(blog);
+
+  const getDateStr = (date: string) => {
+    return new Date(date).toLocaleDateString();
+  };
   return (
     <>
       {/* ヘッダー */}
@@ -39,17 +44,50 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         </Toolbar>
       </AppBar>
 
-      {/* 記事一覧 */}
-      <Grid container spacing={1}>
-        {blog.map((blog) => (
-          <Grid item xs={4} key={blog.id}>
-            <Link href={`/blog/${blog.id}`} passHref>
-              <Card variant="outlined">
-                <CardContent>{blog.title}</CardContent>
-              </Card>
-            </Link>
-          </Grid>
-        ))}
+      {/* メインコンテナ */}
+      <Grid container sx={{ p: 6 }}>
+        {/* 記事一覧 */}
+        <Grid
+          container
+          item
+          // spacing={2}
+          xs={12}
+          md={8}
+          sx={{ p: 1, bgcolor: "#FFF" }}
+        >
+          {blog.map((blog) => (
+            <Grid item xs={12} sm={6} key={blog.id}>
+              <Link href={`/blog/${blog.id}`} passHref>
+                <Card sx={{ p: 2, m: 2 }}>
+                  <Typography variant="h6" sx={{ pb: 1 }}>
+                    {blog.title}
+                  </Typography>
+                  {blog.tags.map((tag) => (
+                    <Typography
+                      key={tag.id}
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ display: "inline-block", pr: 1 }}
+                    >
+                      #{tag.tag}
+                    </Typography>
+                  ))}
+                  <Typography key={blog.id} variant="body2">
+                    {getDateStr(blog.publishedAt)}
+                  </Typography>
+                </Card>
+              </Link>
+            </Grid>
+          ))}
+        </Grid>
+
+        {/* 記事とサイドバーの余白 */}
+        <Grid md={0.5}></Grid>
+
+        {/* サイドバー */}
+        <Grid container item xs={12} md={3.5} sx={{ p: 3, bgcolor: "#FFF" }}>
+          あ
+        </Grid>
       </Grid>
 
       {/* ボタンサンプル */}
