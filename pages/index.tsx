@@ -7,6 +7,7 @@ import {
   Grid,
   CardContent,
   CardActions,
+  CardMedia,
 } from "@mui/material";
 import type { InferGetStaticPropsType, NextPage } from "next";
 import Link from "next/link";
@@ -58,6 +59,12 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           {blog.map((blog) => (
             <Grid item xs={12} sm={6} key={blog.id}>
               <Link href={`/blog/${blog.id}`} passHref>
+                <CardMedia
+                  component="img"
+                  height="194"
+                  image="/static/images/cards/paella.jpg"
+                  alt="Paella dish"
+                />
                 <Card sx={{ p: 2, m: 2 }}>
                   <Typography variant="h6" sx={{ pb: 1 }}>
                     {blog.title}
