@@ -82,7 +82,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                     <CardMedia
                       component="img"
                       height="200"
-                      image={image}
+                      image={`image/${blog.image}.jpg`}
                       alt="React"
                     />
                     <Typography variant="h6" sx={{ py: 1.5 }}>
