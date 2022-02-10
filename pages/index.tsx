@@ -6,8 +6,10 @@ import {
   Typography,
   Grid,
   CardMedia,
-  Paper,
-  Card,
+  List,
+  ListSubheader,
+  ListItemButton,
+  ListItemText,
 } from "@mui/material";
 import type { InferGetStaticPropsType, NextPage } from "next";
 import Link from "next/link";
@@ -15,17 +17,20 @@ import { client } from "../libs/client";
 import type { Blog } from "../types/blog";
 
 export const getStaticProps = async () => {
-  const data = await client.get({ endpoint: "blog" });
+  const blog = await client.get({ endpoint: "blog" });
+  const tag = await client.get({ endpoint: "tag" });
 
   return {
     props: {
-      blog: data.contents,
+      blogs: blog.contents,
+      tags: tag.contents,
     },
   };
 };
 
 type Props = {
-  blog: Blog[];
+  blogs: Blog[];
+  tags: any[];
 };
 
 const BlogPaper = styled("div")({
@@ -43,12 +48,14 @@ const HeadBar = styled(AppBar)({
   color: "#222",
 });
 
-const image = "image/react.jpg";
-
 const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
-  blog,
+  blogs,
+  tags,
 }: Props) => {
-  console.log(blog);
+  console.log(blogs);
+  console.log(tags);
+
+  const tagList = tags.map((tag) => tag.tag);
 
   const getDateStr = (date: string) => {
     return new Date(date).toLocaleDateString();
@@ -59,23 +66,16 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       {/* ヘッダー */}
       <HeadBar position="static">
         <Toolbar>
-          <Typography>ヘッダー</Typography>
+          <Typography>hinako blog</Typography>
         </Toolbar>
       </HeadBar>
 
       {/* メインコンテナ */}
-      <Grid container sx={{ p: 6 }}>
+      <Grid container sx={{ p: 6, maxWidth: "1500px", margin: "auto" }}>
         {/* 記事一覧 */}
-        <Grid
-          container
-          item
-          // spacing={2}
-          xs={12}
-          md={8}
-          sx={{ p: 1, bgcolor: "#FFF" }}
-        >
-          {blog.map((blog) => (
-            <Grid item xs={12} sm={6} key={blog.id}>
+        <Grid container item xs={12} md={9} sx={{ p: 1, bgcolor: "#FFF" }}>
+          {blogs.map((blog) => (
+            <Grid item xs={12} sm={5.5} key={blog.id} sx={{ margin: "auto" }}>
               <Link href={`/blog/${blog.id}`} passHref>
                 <a>
                   <BlogPaper>
@@ -85,7 +85,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                       image={`image/${blog.image}.jpg`}
                       alt="React"
                     />
-                    <Typography variant="h6" sx={{ py: 1.5 }}>
+                    <Typography variant="h6" sx={{ py: 1.5, minHeight: 120 }}>
                       {blog.title}
                     </Typography>
                     {blog.tags.map((tag) => (
@@ -112,8 +112,41 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         <Grid md={0.5}></Grid>
 
         {/* サイドバー */}
-        <Grid container item xs={12} md={3.5} sx={{ p: 3, bgcolor: "#FFF" }}>
-          あ
+        <Grid container item xs={12} sm={2.5}>
+          <List
+            sx={{ width: "100%", maxWidth: 360, bgcolor: "#fff" }}
+            component="nav"
+            aria-labelledby="nested-list-subheader"
+            subheader={
+              <ListSubheader
+                component="div"
+                sx={{
+                  py: 0.5,
+                  px: 4,
+                  mb: 1,
+                  fontSize: 18,
+                  background: "#f2f2f2",
+                  borderBottom: "solid 0.5px #999",
+                }}
+              >
+                カテゴリー
+              </ListSubheader>
+            }
+          >
+            {tagList.map((tag) => (
+              <ListItemButton
+                key={tag.id}
+                sx={{ py: 0.5, px: 4, minHeight: 32 }}
+              >
+                <ListItemText
+                  primary={tag}
+                  primaryTypographyProps={{
+                    fontSize: 15,
+                  }}
+                />
+              </ListItemButton>
+            ))}
+          </List>
         </Grid>
       </Grid>
 
