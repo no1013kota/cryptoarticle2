@@ -65,17 +65,23 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
     <>
       {/* ヘッダー */}
       <HeadBar position="static">
-        <Toolbar>
-          <Typography>hinako blog</Typography>
+        <Toolbar sx={{ ml: 4 }}>
+          <Typography sx={{ fontSize: 20 }}>hinako blog</Typography>
         </Toolbar>
       </HeadBar>
 
       {/* メインコンテナ */}
-      <Grid container sx={{ p: 6, maxWidth: "1500px", margin: "auto" }}>
+      <Grid container sx={{ p: 6, maxWidth: "1500px" }}>
         {/* 記事一覧 */}
         <Grid container item xs={12} md={9} sx={{ p: 1, bgcolor: "#FFF" }}>
           {blogs.map((blog) => (
-            <Grid item xs={12} sm={5.5} key={blog.id} sx={{ margin: "auto" }}>
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              key={blog.id}
+              sx={{ p: 1, marginRight: "auto" }}
+            >
               <Link href={`/blog/${blog.id}`} passHref>
                 <a>
                   <BlogPaper>
@@ -125,11 +131,11 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                   px: 4,
                   mb: 1,
                   fontSize: 18,
-                  background: "#f2f2f2",
-                  borderBottom: "solid 0.5px #999",
+                  color: "#111",
+                  borderBottom: "solid 0.5px #66CCFF",
                 }}
               >
-                カテゴリー
+                Category
               </ListSubheader>
             }
           >
