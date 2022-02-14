@@ -23,7 +23,7 @@ import { getDateStr } from "utils/getDateStr";
 import { Header } from "components/organisms/Header";
 import { Footer } from "components/organisms/Footer";
 
-const getStaticProps = async () => {
+export const getStaticProps = async () => {
   const blog = await client.get({ endpoint: "blog" });
   const tag = await client.get({ endpoint: "tag" });
 
