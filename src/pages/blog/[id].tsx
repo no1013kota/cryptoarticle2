@@ -9,7 +9,7 @@ import cheerio from "cheerio";
 import hljs from "highlight.js";
 import "highlight.js/styles/hybrid.css";
 import type { Blog } from "../../types/blog";
-import { client } from "../../src/libs/client";
+import { client } from "libs/client";
 import { Params } from "next/dist/server/router";
 import { Button, Grid, Typography } from "@mui/material";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
@@ -84,7 +84,7 @@ const BlogId: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
 }: Props) => {
   return (
     <main>
-      <Container xs={11} md={9}>
+      <Container item xs={11} md={9}>
         <BlogInfo>
           <Typography sx={{ fontSize: 26, fontWeight: 500, pb: 2 }}>
             {blog.title}

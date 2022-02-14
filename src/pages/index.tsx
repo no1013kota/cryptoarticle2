@@ -142,7 +142,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         </Grid>
 
         {/* 記事とサイドバーの余白 */}
-        <Grid xs={0} sm={0.5}></Grid>
+        <Grid item xs={0} sm={0.5}></Grid>
 
         {/* サイドバー */}
         <Grid container item xs={12} sm={2.5} sx={{ mb: 5 }}>
