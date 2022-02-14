@@ -1,22 +1,29 @@
+import { useState } from "react";
+import type { InferGetStaticPropsType, NextPage } from "next";
+import Link from "next/link";
+// materialUI
 import { styled } from "@mui/material/styles";
 import {
-  Button,
-  AppBar,
-  Toolbar,
   Typography,
   Grid,
   CardMedia,
   List,
-  ListSubheader,
   ListItemButton,
   ListItemText,
 } from "@mui/material";
-import type { InferGetStaticPropsType, NextPage } from "next";
-import Link from "next/link";
-import { client } from "../libs/client";
-import type { Blog } from "../types/blog";
+import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+// libs
+import { client } from "libs/client";
+// types
+import type { Blog, Tag } from "types/blog";
+// utils
+import { getDateStr } from "utils/getDateStr";
+// components
+import { Header } from "components/organisms/Header";
+import { Footer } from "components/organisms/Footer";
 
-export const getStaticProps = async () => {
+const getStaticProps = async () => {
   const blog = await client.get({ endpoint: "blog" });
   const tag = await client.get({ endpoint: "tag" });
 
@@ -30,7 +37,7 @@ export const getStaticProps = async () => {
 
 type Props = {
   blogs: Blog[];
-  tags: any[];
+  tags: Tag[];
 };
 
 const BlogPaper = styled("div")({
@@ -43,11 +50,6 @@ const BlogPaper = styled("div")({
   },
 });
 
-const HeadBar = styled(AppBar)({
-  backgroundColor: "#FFF",
-  color: "#222",
-});
-
 const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   blogs,
   tags,
@@ -56,25 +58,42 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   console.log(tags);
 
   const tagList = tags.map((tag) => tag.tag);
+  const [showBlogs, setShowBlogs] = useState(blogs);
 
-  const getDateStr = (date: string) => {
-    return new Date(date).toLocaleDateString();
+  // タグ絞り込み
+  const selectTag = (tag: string) => {
+    if (tag === "all") {
+      setShowBlogs(blogs);
+    } else {
+      const selectedBlogs = blogs.filter((blog) => {
+        const haveTags = blog.tags.map((tag) => tag.tag);
+        return haveTags.includes(tag);
+      });
+      setShowBlogs(selectedBlogs);
+    }
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   return (
     <>
       {/* ヘッダー */}
-      <HeadBar position="static">
-        <Toolbar sx={{ ml: 4 }}>
-          <Typography sx={{ fontSize: 20 }}>hinako blog</Typography>
-        </Toolbar>
-      </HeadBar>
+      <Header />
 
       {/* メインコンテナ */}
-      <Grid container sx={{ p: 6, maxWidth: "1500px" }}>
+      <Grid container sx={{ p: 6, maxWidth: "1500px", mb: 5, margin: "auto" }}>
         {/* 記事一覧 */}
-        <Grid container item xs={12} md={9} sx={{ p: 1, bgcolor: "#FFF" }}>
-          {blogs.map((blog) => (
+        <Grid
+          container
+          item
+          xs={12}
+          sm={9}
+          sx={{ p: 1, bgcolor: "#FFF", mb: 5 }}
+        >
+          {showBlogs.map((blog) => (
             <Grid
               item
               xs={12}
@@ -87,13 +106,18 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                   <BlogPaper>
                     <CardMedia
                       component="img"
-                      height="200"
+                      width="100%"
+                      height="auto"
                       image={`image/${blog.image}.jpg`}
-                      alt="React"
+                      alt={blog.image}
+                      sx={{ border: "solid 0.5px #ccc" }}
                     />
-                    <Typography variant="h6" sx={{ py: 1.5, minHeight: 120 }}>
+                    <Typography variant="h6" sx={{ py: 1.5, minHeight: 80 }}>
                       {blog.title}
                     </Typography>
+                    <LocalOfferIcon
+                      sx={{ fontSize: 15, mr: 0.5, verticalAlign: "middle" }}
+                    />
                     {blog.tags.map((tag) => (
                       <Typography
                         key={tag.id}
@@ -105,6 +129,9 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                       </Typography>
                     ))}
                     <Typography key={blog.id} variant="body2">
+                      <AccessTimeIcon
+                        sx={{ fontSize: 15, mr: 0.5, verticalAlign: "middle" }}
+                      />
                       {getDateStr(blog.publishedAt)}
                     </Typography>
                   </BlogPaper>
@@ -115,33 +142,45 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         </Grid>
 
         {/* 記事とサイドバーの余白 */}
-        <Grid md={0.5}></Grid>
+        <Grid xs={0} sm={0.5}></Grid>
 
         {/* サイドバー */}
-        <Grid container item xs={12} sm={2.5}>
+        <Grid container item xs={12} sm={2.5} sx={{ mb: 5 }}>
           <List
-            sx={{ width: "100%", maxWidth: 360, bgcolor: "#fff" }}
+            sx={{ width: "100%", bgcolor: "#fff", height: 410 }}
             component="nav"
             aria-labelledby="nested-list-subheader"
             subheader={
-              <ListSubheader
+              <Typography
                 component="div"
                 sx={{
                   py: 0.5,
                   px: 4,
-                  mb: 1,
+                  my: 1,
                   fontSize: 18,
-                  color: "#111",
-                  borderBottom: "solid 0.5px #66CCFF",
+                  color: "#444",
+                  borderBottom: "solid 0.7px #888",
                 }}
               >
-                Category
-              </ListSubheader>
+                # Tags
+              </Typography>
             }
           >
+            <ListItemButton
+              onClick={() => selectTag("all")}
+              sx={{ py: 0.5, px: 4, minHeight: 32 }}
+            >
+              <ListItemText
+                primary="All"
+                primaryTypographyProps={{
+                  fontSize: 15,
+                }}
+              />
+            </ListItemButton>
             {tagList.map((tag) => (
               <ListItemButton
-                key={tag.id}
+                key={tag}
+                onClick={() => selectTag(tag)}
                 sx={{ py: 0.5, px: 4, minHeight: 32 }}
               >
                 <ListItemText
@@ -156,8 +195,8 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         </Grid>
       </Grid>
 
-      {/* ボタンサンプル */}
-      <Button variant="text">Material UIのボタン</Button>
+      {/* フッター */}
+      <Footer />
     </>
   );
 };

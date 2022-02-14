@@ -8,9 +8,9 @@ export const theme = createTheme({
     // },
   },
   // typography: {
-  //   h1: {
-  //     fontSize: "2.5rem",
-  //   },
+  // 	h1: {
+  // 		fontSize: ""
+  // 	}
   // },
   // palette: {
   //   primary: {
