@@ -8,7 +8,7 @@ import {
 import cheerio from "cheerio";
 import hljs from "highlight.js";
 import "highlight.js/styles/hybrid.css";
-import type { Blog } from "../../types/blog";
+import type { Blog } from "types/blog";
 import { client } from "libs/client";
 import { Params } from "next/dist/server/router";
 import { Button, Grid, Typography } from "@mui/material";
