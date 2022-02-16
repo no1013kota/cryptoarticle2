@@ -33,10 +33,10 @@ export const Header = memo(() => {
             <ListItemText primary="Blog" />
             <DescriptionOutlinedIcon sx={{ fontSize: 18, ml: 0.5 }} />
           </ListItemButton>
-          <ListItemButton component="a" href="/profile">
+          {/* <ListItemButton component="a" href="/profile">
             <ListItemText primary="Profile" />
             <FaceOutlinedIcon sx={{ fontSize: 18, ml: 0.5 }} />
-          </ListItemButton>
+          </ListItemButton> */}
         </List>
       </Toolbar>
     </HeadBar>
