@@ -82,6 +82,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
     <>
       {/* ヘッダー */}
       <Header />
+      <p>developだけ変更</p>
 
       {/* メインコンテナ */}
       <Grid container sx={{ p: 6, maxWidth: "1500px", mb: 5, margin: "auto" }}>
