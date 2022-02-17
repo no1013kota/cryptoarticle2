@@ -93,6 +93,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           sm={9}
           sx={{ p: 1, bgcolor: "#FFF", mb: 5 }}
         >
+          {!showBlogs.length && <p>There are no posts...</p>}
           {showBlogs.map((blog) => (
             <Grid
               item
