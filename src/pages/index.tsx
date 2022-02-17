@@ -148,7 +148,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         {/* サイドバー */}
         <Grid container item xs={12} sm={2.5} sx={{ mb: 5 }}>
           <List
-            sx={{ width: "100%", bgcolor: "#fff", height: 410 }}
+            sx={{ width: "100%", bgcolor: "#fff", height: 450 }}
             component="nav"
             aria-labelledby="nested-list-subheader"
             subheader={
