@@ -1,20 +1,28 @@
-import { styled } from "@mui/material/styles";
 import {
   GetStaticPaths,
   GetStaticProps,
   InferGetStaticPropsType,
   NextPage,
 } from "next";
+import { Params } from "next/dist/server/router";
+// code style
 import cheerio from "cheerio";
 import hljs from "highlight.js";
 import "highlight.js/styles/hybrid.css";
-import type { Blog } from "types/blog";
-import { client } from "libs/client";
-import { Params } from "next/dist/server/router";
+// material ui
+import { styled } from "@mui/material/styles";
 import { Button, Grid, Typography } from "@mui/material";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+// import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+// libs
+import { client } from "libs/client";
+//types
+import type { Blog } from "types/blog";
+//component
+import { Footer } from "components/organisms/Footer";
+// utils
+import { getDateStr } from "utils/getDateStr";
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
   const data = await client.get({ endpoint: "blog" });
@@ -69,10 +77,6 @@ const BlogBody = styled("div")({
   },
 });
 
-const getDateStr = (date: string) => {
-  return new Date(date).toLocaleDateString();
-};
-
 type Props = {
   blog: Blog;
   highlightedBody: string;
@@ -86,7 +90,7 @@ const BlogId: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
     <main>
       <Container item xs={11} md={9}>
         <BlogInfo>
-          <Typography sx={{ fontSize: 26, fontWeight: 500, pb: 2 }}>
+          <Typography sx={{ fontSize: 26, fontWeight: 540, pb: 2 }}>
             {blog.title}
           </Typography>
           <Typography variant="body2" sx={{ display: "inline-block", pr: 4 }}>
@@ -119,6 +123,8 @@ const BlogId: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       >
         記事一覧へ戻る
       </Button> */}
+
+      <Footer />
     </main>
   );
 };
