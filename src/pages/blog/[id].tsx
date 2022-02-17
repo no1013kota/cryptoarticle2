@@ -110,7 +110,7 @@ const BlogId: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         </BlogInfo>
         <BlogBody dangerouslySetInnerHTML={{ __html: highlightedBody }} />
       </Container>
-      <Button
+      {/* <Button
         variant="outlined"
         startIcon={<ArrowBackIcon />}
         component="a"
@@ -118,7 +118,7 @@ const BlogId: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         sx={{ margin: "0 auto" }}
       >
         記事一覧へ戻る
-      </Button>
+      </Button> */}
     </main>
   );
 };
