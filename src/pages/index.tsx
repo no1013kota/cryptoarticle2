@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+// import UpdateIcon from "@mui/icons-material/Update";
 // libs
 import { client } from "libs/client";
 // types
@@ -20,8 +21,9 @@ import type { Blog, Tag } from "types/blog";
 // utils
 import { getDateStr } from "utils/getDateStr";
 // components
-import { Header } from "components/organisms/Header";
-import { Footer } from "components/organisms/Footer";
+import { Header } from "components/Header";
+import { Footer } from "components/Footer";
+import { Pagination } from "components/Pagination";
 
 export const getStaticProps = async () => {
   const blog = await client.get({ endpoint: "blog" });
@@ -59,6 +61,8 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
 
   const tagList = tags.map((tag) => tag.tag);
   const [showBlogs, setShowBlogs] = useState(blogs);
+  const [offset, setOffset] = useState(0);
+  const perPage = 8;
 
   // タグ絞り込み
   const selectTag = (tag: string) => {
@@ -93,7 +97,8 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           sm={9}
           sx={{ p: 1, bgcolor: "#FFF", mb: 5 }}
         >
-          {showBlogs.map((blog) => (
+          {!showBlogs.length && <p>There are no posts...</p>}
+          {showBlogs.slice(offset, offset + perPage).map((blog) => (
             <Grid
               item
               xs={12}
@@ -123,7 +128,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                         key={tag.id}
                         variant="body2"
                         color="text.secondary"
-                        sx={{ display: "inline-block", pr: 1 }}
+                        sx={{ display: "inline-block", mr: 1 }}
                       >
                         #{tag.tag}
                       </Typography>
@@ -133,12 +138,31 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                         sx={{ fontSize: 15, mr: 0.5, verticalAlign: "middle" }}
                       />
                       {getDateStr(blog.publishedAt)}
+                      {/* {blog.updatedAt !== blog.publishedAt && (
+                        <>
+                          <UpdateIcon
+                            sx={{
+                              fontSize: 15,
+                              ml: 1,
+                              mr: 0.5,
+                              verticalAlign: "middle",
+                            }}
+                          />
+                          {getDateStr(blog.updatedAt)}
+                        </>
+                      )} */}
                     </Typography>
                   </BlogPaper>
                 </a>
               </Link>
             </Grid>
           ))}
+
+          <Pagination
+            totalBlogs={blogs.length}
+            setOffset={setOffset}
+            perPage={perPage}
+          />
         </Grid>
 
         {/* 記事とサイドバーの余白 */}
@@ -147,7 +171,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         {/* サイドバー */}
         <Grid container item xs={12} sm={2.5} sx={{ mb: 5 }}>
           <List
-            sx={{ width: "100%", bgcolor: "#fff", height: 410 }}
+            sx={{ width: "100%", bgcolor: "#fff", height: 500 }}
             component="nav"
             aria-labelledby="nested-list-subheader"
             subheader={
