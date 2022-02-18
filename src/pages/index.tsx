@@ -20,8 +20,8 @@ import type { Blog, Tag } from "types/blog";
 // utils
 import { getDateStr } from "utils/getDateStr";
 // components
-import { Header } from "components/organisms/Header";
-import { Footer } from "components/organisms/Footer";
+import { Header } from "components/Header";
+import { Footer } from "components/Footer";
 
 export const getStaticProps = async () => {
   const blog = await client.get({ endpoint: "blog" });
