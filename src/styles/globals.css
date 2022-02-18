@@ -201,3 +201,49 @@ img {
 iframe {
   max-width: 100%;
 }
+
+/*************************/
+/*** react-pagination ***/
+/************************/
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+.pagination li {
+  margin: 0 16px;
+}
+
+.pagination li > a {
+  position: relative;
+  font-size: 16px;
+  width: 24px;
+  height: 24px;
+  outline: none;
+  z-index: 100;
+  cursor: pointer;
+}
+
+.pagination a::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -100;
+}
+
+.pagination li.active > a::before {
+  background-color: #929191;
+}
+
+.pagination li.active > a {
+  color: #f2f2f2;
+}
