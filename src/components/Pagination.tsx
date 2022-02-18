@@ -4,11 +4,10 @@ import ReactPaginate from "react-paginate";
 type Props = {
   totalBlogs: number;
   setOffset: Dispatch<SetStateAction<number>>;
+  perPage: number;
 };
 
-export const Pagination = ({ totalBlogs, setOffset }: Props) => {
-  const perPage: number = 8;
-
+export const Pagination = ({ totalBlogs, setOffset, perPage }: Props) => {
   const handlePageChange = (data: { selected: number }) => {
     setOffset(data.selected * perPage); // offsetを変更し、表示開始するアイテムの番号を変更
     window.scrollTo({

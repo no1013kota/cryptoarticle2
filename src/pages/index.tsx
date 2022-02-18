@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+// import UpdateIcon from "@mui/icons-material/Update";
 // libs
 import { client } from "libs/client";
 // types
@@ -61,7 +62,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   const tagList = tags.map((tag) => tag.tag);
   const [showBlogs, setShowBlogs] = useState(blogs);
   const [offset, setOffset] = useState(0);
-  const perPage = 6;
+  const perPage = 8;
 
   // タグ絞り込み
   const selectTag = (tag: string) => {
@@ -127,7 +128,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                         key={tag.id}
                         variant="body2"
                         color="text.secondary"
-                        sx={{ display: "inline-block", pr: 1 }}
+                        sx={{ display: "inline-block", mr: 1 }}
                       >
                         #{tag.tag}
                       </Typography>
@@ -137,6 +138,19 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                         sx={{ fontSize: 15, mr: 0.5, verticalAlign: "middle" }}
                       />
                       {getDateStr(blog.publishedAt)}
+                      {/* {blog.updatedAt !== blog.publishedAt && (
+                        <>
+                          <UpdateIcon
+                            sx={{
+                              fontSize: 15,
+                              ml: 1,
+                              mr: 0.5,
+                              verticalAlign: "middle",
+                            }}
+                          />
+                          {getDateStr(blog.updatedAt)}
+                        </>
+                      )} */}
                     </Typography>
                   </BlogPaper>
                 </a>
@@ -144,7 +158,11 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
             </Grid>
           ))}
 
-          <Pagination totalBlogs={blogs.length} setOffset={setOffset} />
+          <Pagination
+            totalBlogs={blogs.length}
+            setOffset={setOffset}
+            perPage={perPage}
+          />
         </Grid>
 
         {/* 記事とサイドバーの余白 */}
