@@ -20,7 +20,7 @@ import { client } from "libs/client";
 //types
 import type { Blog } from "types/blog";
 //component
-import { Footer } from "components/organisms/Footer";
+import { Footer } from "components/Footer";
 // utils
 import { getDateStr } from "utils/getDateStr";
 
