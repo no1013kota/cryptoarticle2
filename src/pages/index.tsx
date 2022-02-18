@@ -1,7 +1,6 @@
 import { useState } from "react";
 import type { InferGetStaticPropsType, NextPage } from "next";
 import Link from "next/link";
-import ReactPaginate from "react-paginate";
 // materialUI
 import { styled } from "@mui/material/styles";
 import {
@@ -23,6 +22,7 @@ import { getDateStr } from "utils/getDateStr";
 // components
 import { Header } from "components/Header";
 import { Footer } from "components/Footer";
+import { Pagination } from "components/Pagination";
 
 export const getStaticProps = async () => {
   const blog = await client.get({ endpoint: "blog" });
@@ -61,16 +61,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   const tagList = tags.map((tag) => tag.tag);
   const [showBlogs, setShowBlogs] = useState(blogs);
   const [offset, setOffset] = useState(0);
-  const perPage: number = 6;
-
-  const handlePageChange = (data: { selected: number }) => {
-    const page_number = data["selected"]; // クリックした部分のページ数が{selected: 2}のような形で返ってくる
-    setOffset(page_number * perPage); // offsetを変更し、表示開始するアイテムの番号を変更
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
+  const perPage = 6;
 
   // タグ絞り込み
   const selectTag = (tag: string) => {
@@ -153,20 +144,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
             </Grid>
           ))}
 
-          <ReactPaginate
-            previousLabel={"<"}
-            nextLabel={">"}
-            // breakLabel={"..."}
-            pageCount={Math.ceil(blogs.length / perPage)} // 全部のページ数。端数の場合も考えて切り上げに。
-            // marginPagesDisplayed={2} // 一番最初と最後を基準にして、そこからいくつページ数を表示するか
-            // pageRangeDisplayed={5} // アクティブなページを基準にして、そこからいくつページ数を表示するか
-            onPageChange={handlePageChange} // クリック時のfunction
-            containerClassName={"pagination"} // ページネーションであるulに着くクラス名
-            activeClassName={"active"} // アクティブなページのliに着くクラス名
-            // previousClassName={"pagination__previous"} // 「<」のliに着けるクラス名
-            // nextClassName={"pagination__next"} // 「>」のliに着けるクラス名
-            // disabledClassName={"pagination__disabled"} // 使用不可の「<,>」に着くクラス名
-          />
+          <Pagination totalBlogs={blogs.length} setOffset={setOffset} />
         </Grid>
 
         {/* 記事とサイドバーの余白 */}
