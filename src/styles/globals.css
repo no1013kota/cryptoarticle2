@@ -111,9 +111,12 @@ section {
 body {
   line-height: 2.1;
 }
-ol,
+/* ol,
 ul {
   list-style: none;
+} */
+li {
+  margin-left: 1.5em;
 }
 blockquote,
 q {
@@ -180,6 +183,7 @@ code {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier,
     monospace;
   color: #00008b;
+  font-size: 14px;
   background-color: #eaeef5;
   padding: 1.5px 4px;
   margin: 6px 0;
@@ -247,4 +251,13 @@ iframe {
 
 .pagination li.active > a {
   color: #f2f2f2;
+}
+
+@media (max-width: 767px) {
+  html {
+    font-size: 15px;
+  }
+  code {
+    font-size: 13px;
+  }
 }
