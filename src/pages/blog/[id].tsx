@@ -87,45 +87,47 @@ const BlogId: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   highlightedBody,
 }: Props) => {
   return (
-    <main>
-      <Container item xs={11} md={9}>
-        <BlogInfo>
-          <Typography sx={{ fontSize: 26, fontWeight: 540, pb: 2 }}>
-            {blog.title}
-          </Typography>
-          <Typography variant="body2" sx={{ display: "inline-block", pr: 4 }}>
-            <AccessTimeIcon
+    <>
+      <Grid container sx={{ width: "100vw", margin: "auto" }}>
+        <Container item xs={11.5} md={9}>
+          <BlogInfo>
+            <Typography sx={{ fontSize: 26, fontWeight: 540, pb: 2 }}>
+              {blog.title}
+            </Typography>
+            <Typography variant="body2" sx={{ display: "inline-block", pr: 4 }}>
+              <AccessTimeIcon
+                sx={{ fontSize: 15, mr: 0.5, verticalAlign: "middle" }}
+              />
+              投稿日 {getDateStr(blog.publishedAt)}
+            </Typography>
+            <LocalOfferIcon
               sx={{ fontSize: 15, mr: 0.5, verticalAlign: "middle" }}
             />
-            投稿日 {getDateStr(blog.publishedAt)}
-          </Typography>
-          <LocalOfferIcon
-            sx={{ fontSize: 15, mr: 0.5, verticalAlign: "middle" }}
-          />
-          {blog.tags.map((tag) => (
-            <Typography
-              key={tag.id}
-              variant="body2"
-              sx={{ display: "inline-block", pr: 1 }}
-            >
-              #{tag.tag}
-            </Typography>
-          ))}
-        </BlogInfo>
-        <BlogBody dangerouslySetInnerHTML={{ __html: highlightedBody }} />
-      </Container>
-      {/* <Button
+            {blog.tags.map((tag) => (
+              <Typography
+                key={tag.id}
+                variant="body2"
+                sx={{ display: "inline-block", pr: 1 }}
+              >
+                #{tag.tag}
+              </Typography>
+            ))}
+          </BlogInfo>
+          <BlogBody dangerouslySetInnerHTML={{ __html: highlightedBody }} />
+        </Container>
+        {/* <Button
         variant="outlined"
         startIcon={<ArrowBackIcon />}
         component="a"
         href="/"
         sx={{ margin: "0 auto" }}
-      >
-        記事一覧へ戻る
-      </Button> */}
+				>
+				記事一覧へ戻る
+			</Button> */}
+      </Grid>
 
       <Footer />
-    </main>
+    </>
   );
 };
 
