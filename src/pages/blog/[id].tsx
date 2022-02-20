@@ -88,8 +88,8 @@ const BlogId: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
 }: Props) => {
   return (
     <>
-      <Grid container sx={{ width: "100vw", margin: "auto" }}>
-        <Container item xs={11.5} md={9}>
+      <Grid container sx={{ margin: "auto" }}>
+        <Container item xs={11} md={9}>
           <BlogInfo>
             <Typography sx={{ fontSize: 26, fontWeight: 540, pb: 2 }}>
               {blog.title}
