@@ -115,6 +115,7 @@ const BlogId: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           </BlogInfo>
           <BlogBody dangerouslySetInnerHTML={{ __html: highlightedBody }} />
         </Container>
+        {/* TODO:記事一覧へ戻るボタン設置検討中 */}
         {/* <Button
         variant="outlined"
         startIcon={<ArrowBackIcon />}

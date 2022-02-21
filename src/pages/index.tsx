@@ -148,6 +148,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                           }}
                         />
                         {getDateStr(blog.publishedAt)}
+                        {/* TODO:更新日時を表示するか検討中 */}
                         {/* {blog.updatedAt !== blog.publishedAt && (
                         <>
                           <UpdateIcon

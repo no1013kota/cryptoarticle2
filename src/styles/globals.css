@@ -253,6 +253,10 @@ iframe {
   color: #f2f2f2;
 }
 
+/*************************/
+/***** media queries *****/
+/************************/
+
 @media (max-width: 767px) {
   html {
     font-size: 15px;
