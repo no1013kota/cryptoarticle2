@@ -3,14 +3,7 @@ import type { InferGetStaticPropsType, NextPage } from "next";
 import Link from "next/link";
 // materialUI
 import { styled } from "@mui/material/styles";
-import {
-  Typography,
-  Grid,
-  CardMedia,
-  List,
-  ListItemButton,
-  ListItemText,
-} from "@mui/material";
+import { Typography, Grid, CardMedia } from "@mui/material";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 // import UpdateIcon from "@mui/icons-material/Update";
@@ -24,6 +17,7 @@ import { getDateStr } from "utils/getDateStr";
 import { Header } from "components/Header";
 import { Footer } from "components/Footer";
 import { Pagination } from "components/Pagination";
+import { SideBar } from "components/SideBar";
 //recoil
 import { useAllBlogsState } from "atoms/allBlogsAtom";
 import { useAllTagsState } from "atoms/allTogsAtom";
@@ -162,6 +156,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               </Grid>
             ))}
 
+            {/* ページネーション */}
             <Pagination
               totalBlogs={blogs.length}
               setOffset={setOffset}
@@ -173,54 +168,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           <Grid item xs={0} sm={0.5}></Grid>
 
           {/* サイドバー */}
-          <Grid container item xs={12} sm={2.5} sx={{ mb: 5 }}>
-            <List
-              sx={{ width: "100%", bgcolor: "#fff", height: 500 }}
-              component="nav"
-              aria-labelledby="nested-list-subheader"
-              subheader={
-                <Typography
-                  component="div"
-                  sx={{
-                    py: 0.5,
-                    px: 4,
-                    my: 1,
-                    fontSize: 18,
-                    color: "#444",
-                    borderBottom: "solid 0.7px #888",
-                  }}
-                >
-                  # Tags
-                </Typography>
-              }
-            >
-              <ListItemButton
-                onClick={() => selectTag("all")}
-                sx={{ py: 0.5, px: 4, minHeight: 32 }}
-              >
-                <ListItemText
-                  primary="All"
-                  primaryTypographyProps={{
-                    fontSize: 15,
-                  }}
-                />
-              </ListItemButton>
-              {tagList.map((tag) => (
-                <ListItemButton
-                  key={tag}
-                  onClick={() => selectTag(tag)}
-                  sx={{ py: 0.5, px: 4, minHeight: 32 }}
-                >
-                  <ListItemText
-                    primary={tag}
-                    primaryTypographyProps={{
-                      fontSize: 15,
-                    }}
-                  />
-                </ListItemButton>
-              ))}
-            </List>
-          </Grid>
+          <SideBar />
         </Grid>
       </Grid>
       {/* フッター */}
