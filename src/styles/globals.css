@@ -245,6 +245,10 @@ iframe {
   z-index: -100;
 }
 
+.pagination li {
+  list-style: none;
+}
+
 .pagination li.active > a::before {
   background-color: #929191;
 }
