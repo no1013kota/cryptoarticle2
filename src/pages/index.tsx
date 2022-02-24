@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { InferGetStaticPropsType, NextPage } from "next";
 import Link from "next/link";
 // materialUI
@@ -24,6 +24,11 @@ import { getDateStr } from "utils/getDateStr";
 import { Header } from "components/Header";
 import { Footer } from "components/Footer";
 import { Pagination } from "components/Pagination";
+//recoil
+import { useAllBlogsState } from "atoms/allBlogsAtom";
+import { useAllTagsState } from "atoms/allTogsAtom";
+import { useShowBlogsState } from "atoms/showBlogsAtom";
+import { useSelectBlogs } from "hooks/useSelectBlogs";
 
 export const getStaticProps = async () => {
   const blog = await client.get({ endpoint: "blog" });
@@ -56,31 +61,19 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   blogs,
   tags,
 }: Props) => {
-  console.log(blogs);
-  console.log(tags);
-
+  const { setAllBlogs } = useAllBlogsState();
+  const { setAllTags } = useAllTagsState();
+  const { showBlogs, setShowBlogs } = useShowBlogsState();
+  const { selectTag } = useSelectBlogs();
   const tagList = tags.map((tag) => tag.tag);
-  const [showBlogs, setShowBlogs] = useState(blogs);
   const [offset, setOffset] = useState(0);
   const perPage = 8;
 
-  // タグ絞り込み
-  const selectTag = (tag: string) => {
-    if (tag === "all") {
-      setShowBlogs(blogs);
-    } else {
-      const selectedBlogs = blogs.filter((blog) => {
-        const haveTags = blog.tags.map((tag) => tag.tag);
-        return haveTags.includes(tag);
-      });
-      setShowBlogs(selectedBlogs);
-    }
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
+  useEffect(() => {
+    setAllBlogs(blogs);
+    setAllTags(tagList);
+    setShowBlogs(blogs);
+  }, []);
 
   return (
     <>
