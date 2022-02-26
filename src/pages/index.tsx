@@ -22,7 +22,6 @@ import { SideBar } from "components/SideBar";
 import { useAllBlogsState } from "atoms/allBlogsAtom";
 import { useAllTagsState } from "atoms/allTogsAtom";
 import { useShowBlogsState } from "atoms/showBlogsAtom";
-import { useSelectBlogs } from "hooks/useSelectBlogs";
 
 export const getStaticProps = async () => {
   const blog = await client.get({ endpoint: "blog" });
@@ -58,7 +57,6 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   const { setAllBlogs } = useAllBlogsState();
   const { setAllTags } = useAllTagsState();
   const { showBlogs, setShowBlogs } = useShowBlogsState();
-  const { selectTag } = useSelectBlogs();
   const tagList = tags.map((tag) => tag.tag);
   const [offset, setOffset] = useState(0);
   const perPage = 8;
