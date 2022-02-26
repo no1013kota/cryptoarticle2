@@ -33,6 +33,7 @@ export const Header = memo(() => {
             <ListItemText primary="Blog" />
             <DescriptionOutlinedIcon sx={{ fontSize: 18, ml: 0.5 }} />
           </ListItemButton>
+          {/* TODO:プロフィール画面作成後、リンクを作成する */}
           {/* <ListItemButton component="a" href="/profile">
             <ListItemText primary="Profile" />
             <FaceOutlinedIcon sx={{ fontSize: 18, ml: 0.5 }} />
