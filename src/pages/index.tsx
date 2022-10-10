@@ -1,31 +1,31 @@
-import { useEffect, useState } from "react";
-import type { InferGetStaticPropsType, NextPage } from "next";
-import Link from "next/link";
+import { useEffect, useState } from 'react';
+import type { InferGetStaticPropsType, NextPage } from 'next';
+import Link from 'next/link';
 // materialUI
-import { styled } from "@mui/material/styles";
-import { Typography, Grid, CardMedia } from "@mui/material";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { styled } from '@mui/material/styles';
+import { Typography, Grid, CardMedia } from '@mui/material';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 // import UpdateIcon from "@mui/icons-material/Update";
 // libs
-import { client } from "libs/client";
+import { client } from 'libs/client';
 // types
-import type { Blog, Tag } from "types/blog";
+import type { Blog, Tag } from 'types/blog';
 // utils
-import { getDateStr } from "utils/getDateStr";
+import { getDateStr } from 'utils/getDateStr';
 // components
-import { Header } from "components/Header";
-import { Footer } from "components/Footer";
-import { Pagination } from "components/Pagination";
-import { SideBar } from "components/SideBar";
+import { Header } from 'components/Header';
+import { Footer } from 'components/Footer';
+import { Pagination } from 'components/Pagination';
+import { SideBar } from 'components/SideBar';
 //recoil
-import { useAllBlogsState } from "atoms/allBlogsAtom";
-import { useAllTagsState } from "atoms/allTogsAtom";
-import { useShowBlogsState } from "atoms/showBlogsAtom";
+import { useAllBlogsState } from 'atoms/allBlogsAtom';
+import { useAllTagsState } from 'atoms/allTogsAtom';
+import { useShowBlogsState } from 'atoms/showBlogsAtom';
 
 export const getStaticProps = async () => {
-  const blog = await client.get({ endpoint: "blog" });
-  const tag = await client.get({ endpoint: "tag" });
+  const blog = await client.get({ endpoint: 'blog' });
+  const tag = await client.get({ endpoint: 'tag' });
 
   return {
     props: {
@@ -40,20 +40,17 @@ type Props = {
   tags: Tag[];
 };
 
-const BlogPaper = styled("div")({
-  padding: "16px",
-  transition: "all 0.2s",
-  "&:hover": {
+const BlogPaper = styled('div')({
+  padding: '16px',
+  transition: 'all 0.2s',
+  '&:hover': {
     boxShadow:
-      "1px 0px 5px -1px rgba(0,0,0,0.1), 0px 0px 5px 5px rgba(0,0,0,0.1), 0px 1px 5px 0px rgba(0,0,0,0.1)",
-    transform: "translateY(-1px)",
+      '1px 0px 5px -1px rgba(0,0,0,0.1), 0px 0px 5px 5px rgba(0,0,0,0.1), 0px 1px 5px 0px rgba(0,0,0,0.1)',
+    transform: 'translateY(-1px)',
   },
 });
 
-const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
-  blogs,
-  tags,
-}: Props) => {
+const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ blogs, tags }: Props) => {
   const { setAllBlogs } = useAllBlogsState();
   const { setAllTags } = useAllTagsState();
   const { showBlogs, setShowBlogs } = useShowBlogsState();
@@ -74,62 +71,43 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
 
       {/* メインコンテナ */}
       <Grid container>
-        <Grid
-          container
-          item
-          xs={11}
-          sx={{ maxWidth: "1500px", pt: 6, mb: 5, margin: "auto" }}
-        >
+        <Grid container item xs={11} sx={{ maxWidth: '1500px', pt: 6, mb: 5, margin: 'auto' }}>
           {/* 記事一覧 */}
-          <Grid
-            container
-            item
-            xs={12}
-            sm={9}
-            sx={{ p: 1, bgcolor: "#FFF", mb: 5 }}
-          >
+          <Grid container item xs={12} sm={9} sx={{ p: 1, bgcolor: '#FFF', mb: 5 }}>
             {!showBlogs.length && <p>There are no posts...</p>}
             {showBlogs.slice(offset, offset + perPage).map((blog) => (
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                key={blog.id}
-                sx={{ p: 1, marginRight: "auto" }}
-              >
+              <Grid item xs={12} sm={6} key={blog.id} sx={{ p: 1, marginRight: 'auto' }}>
                 <Link href={`/blog/${blog.id}`} passHref>
                   <a>
                     <BlogPaper>
                       <CardMedia
-                        component="img"
-                        width="100%"
-                        height="auto"
+                        component='img'
+                        width='100%'
+                        height='auto'
                         image={`image/${blog.image}.jpg`}
                         alt={blog.image}
-                        sx={{ border: "solid 0.5px #ccc" }}
+                        sx={{ border: 'solid 0.5px #ccc' }}
                       />
-                      <Typography variant="h6" sx={{ py: 1.5, minHeight: 80 }}>
+                      <Typography variant='h6' sx={{ py: 1.5, minHeight: 80 }}>
                         {blog.title}
                       </Typography>
-                      <LocalOfferIcon
-                        sx={{ fontSize: 15, mr: 0.5, verticalAlign: "middle" }}
-                      />
+                      <LocalOfferIcon sx={{ fontSize: 15, mr: 0.5, verticalAlign: 'middle' }} />
                       {blog.tags.map((tag) => (
                         <Typography
                           key={tag.id}
-                          variant="body2"
-                          color="text.secondary"
-                          sx={{ display: "inline-block", mr: 1 }}
+                          variant='body2'
+                          color='text.secondary'
+                          sx={{ display: 'inline-block', mr: 1 }}
                         >
                           #{tag.tag}
                         </Typography>
                       ))}
-                      <Typography key={blog.id} variant="body2">
+                      <Typography key={blog.id} variant='body2'>
                         <AccessTimeIcon
                           sx={{
                             fontSize: 15,
                             mr: 0.5,
-                            verticalAlign: "middle",
+                            verticalAlign: 'middle',
                           }}
                         />
                         {getDateStr(blog.publishedAt)}
@@ -155,11 +133,9 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
             ))}
 
             {/* ページネーション */}
-            <Pagination
-              totalBlogs={blogs.length}
-              setOffset={setOffset}
-              perPage={perPage}
-            />
+            <Grid container item xs={12}>
+              <Pagination totalBlogs={blogs.length} setOffset={setOffset} perPage={perPage} />
+            </Grid>
           </Grid>
 
           {/* 記事とサイドバーの余白 */}

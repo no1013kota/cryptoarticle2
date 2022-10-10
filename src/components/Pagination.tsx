@@ -1,5 +1,5 @@
-import { Dispatch, SetStateAction } from "react";
-import ReactPaginate from "react-paginate";
+import { Dispatch, SetStateAction } from 'react';
+import ReactPaginate from 'react-paginate';
 
 type Props = {
   totalBlogs: number;
@@ -12,18 +12,18 @@ export const Pagination = ({ totalBlogs, setOffset, perPage }: Props) => {
     setOffset(data.selected * perPage); // offsetを変更し、表示開始するアイテムの番号を変更
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   };
 
   return (
     <ReactPaginate
-      previousLabel={"<"}
-      nextLabel={">"}
+      previousLabel={'<'}
+      nextLabel={'>'}
       pageCount={Math.ceil(totalBlogs / perPage)} // 全部のページ数。端数の場合も考えて切り上げに。
       onPageChange={handlePageChange} // クリック時のfunction
-      containerClassName={"pagination"} // ページネーションであるulに着くクラス名
-      activeClassName={"active"} // アクティブなページのliに着くクラス名
+      containerClassName={'pagination'} // ページネーションであるulに着くクラス名
+      activeClassName={'active'} // アクティブなページのliに着くクラス名
       // breakLabel={"..."}
       // marginPagesDisplayed={2} // 一番最初と最後を基準にして、そこからいくつページ数を表示するか
       // pageRangeDisplayed={5} // アクティブなページを基準にして、そこからいくつページ数を表示するか
