@@ -6,3 +6,13 @@ export const client = createClient({
   // serviceDomain: process.env.SERVICE_DOMAIN || '',
   // apiKey: process.env.API_KEY || '',
 });
+
+export const getAllByMicroCms = (endpoint: string) => {
+  return client.get({
+    endpoint: endpoint,
+    queries: {
+      offset: 0,
+      limit: 100,
+    },
+  });
+};

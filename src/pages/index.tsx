@@ -8,7 +8,7 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 // import UpdateIcon from "@mui/icons-material/Update";
 // libs
-import { client } from 'libs/client';
+import { client, getAllByMicroCms } from 'libs/client';
 // types
 import type { Blog, Tag } from 'types/blog';
 // utils
@@ -24,20 +24,8 @@ import { useAllTagsState } from 'atoms/allTogsAtom';
 import { useShowBlogsState } from 'atoms/showBlogsAtom';
 
 export const getStaticProps = async () => {
-  const blog = await client.get({
-    endpoint: 'blog',
-    queries: {
-      offset: 0,
-      limit: 100,
-    },
-  });
-  const tag = await client.get({
-    endpoint: 'tag',
-    queries: {
-      offset: 0,
-      limit: 100,
-    },
-  });
+  const blog = await getAllByMicroCms('blog');
+  const tag = await getAllByMicroCms('tag');
 
   return {
     props: {
@@ -72,7 +60,6 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ blogs,
 
   useEffect(() => {
     setAllBlogs(blogs);
-    console.log(blogs);
     setAllTags(tagList);
     setShowBlogs(blogs);
   }, []);
