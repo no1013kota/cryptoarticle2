@@ -24,8 +24,20 @@ import { useAllTagsState } from 'atoms/allTogsAtom';
 import { useShowBlogsState } from 'atoms/showBlogsAtom';
 
 export const getStaticProps = async () => {
-  const blog = await client.get({ endpoint: 'blog' });
-  const tag = await client.get({ endpoint: 'tag' });
+  const blog = await client.get({
+    endpoint: 'blog',
+    queries: {
+      offset: 0,
+      limit: 100,
+    },
+  });
+  const tag = await client.get({
+    endpoint: 'tag',
+    queries: {
+      offset: 0,
+      limit: 100,
+    },
+  });
 
   return {
     props: {
@@ -60,6 +72,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ blogs,
 
   useEffect(() => {
     setAllBlogs(blogs);
+    console.log(blogs);
     setAllTags(tagList);
     setShowBlogs(blogs);
   }, []);
