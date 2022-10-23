@@ -18,7 +18,7 @@ import { Header } from 'components/Header';
 import { Footer } from 'components/Footer';
 import { Pagination } from 'components/Pagination';
 import { SideBar } from 'components/SideBar';
-//recoil
+// recoil
 import { useAllBlogsState } from 'atoms/allBlogsAtom';
 import { useAllTagsState } from 'atoms/allTogsAtom';
 import { useShowBlogsState } from 'atoms/showBlogsAtom';
