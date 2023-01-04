@@ -23,7 +23,7 @@ export const Header = memo(() => {
     <HeadBar position="static">
       <Toolbar sx={{ mx: 4 }}>
         <Typography sx={{ fontSize: 20, flexGrow: 1 }}>
-          hinako blog
+          kmcrypto blog
           <IntegrationInstructionsOutlinedIcon
             sx={{ ml: 1, verticalAlign: "middle" }}
           />
