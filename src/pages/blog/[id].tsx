@@ -20,6 +20,7 @@ import { client } from "libs/client";
 //types
 import type { Blog } from "types/blog";
 //component
+import { Header } from 'components/Header';
 import { Footer } from "components/Footer";
 // utils
 import { getDateStr } from "utils/getDateStr";
@@ -88,6 +89,11 @@ const BlogId: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
 }: Props) => {
   return (
     <>
+      {/* ヘッダー */}
+      <Header />
+
+
+      {/* メインコンテナ */} 
       <Grid container sx={{ margin: "auto" }}>
         <Container item xs={11} md={9}>
           <BlogInfo>

@@ -30,7 +30,7 @@ export const Header = memo(() => {
         </Typography>
         <List sx={{ display: "flex" }}>
           <ListItemButton component="a" href="/">
-            <ListItemText primary="Blog" />
+            <ListItemText primary="Homeへ" />
             <DescriptionOutlinedIcon sx={{ fontSize: 18, ml: 0.5 }} />
           </ListItemButton>
           {/* TODO:プロフィール画面作成後、リンクを作成する */}
