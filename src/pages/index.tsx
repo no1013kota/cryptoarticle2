@@ -27,6 +27,9 @@ export const getStaticProps = async () => {
   const blog = await getAllByMicroCms('blog');
   const tag = await getAllByMicroCms('tag');
 
+  console.log(blog);
+  console.log(tag);
+
   return {
     props: {
       blogs: blog.contents,
@@ -82,10 +85,9 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ blogs,
                     <BlogPaper>
                       <CardMedia
                         component='img'
-                        width='100%'
-                        height='auto'
-                        image={`image/${blog.image}.jpg`}
-                        alt={blog.image}
+                        width='700'
+                        height='300'
+                        image={blog.image.url}
                         sx={{ border: 'solid 0.5px #ccc' }}
                       />
                       <Typography variant='h6' sx={{ py: 1.5, minHeight: 80 }}>

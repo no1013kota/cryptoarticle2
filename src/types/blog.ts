@@ -1,9 +1,11 @@
+import { MicroCMSImage } from "microcms-js-sdk";
+
 export type Blog = {
   id: string;
   body: string;
   title: string;
   tags: Tag[];
-  image: string;
+  image: MicroCMSImage;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
