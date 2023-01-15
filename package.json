@@ -16,6 +16,7 @@
     "@material-ui/icons": "^4.11.2",
     "@mui/icons-material": "^5.4.1",
     "@mui/material": "^5.4.0",
+    "@vercel/analytics": "^0.1.8",
     "cheerio": "^1.0.0-rc.10",
     "highlight.js": "^11.4.0",
     "microcms-js-sdk": "^2.3.2",
